@@ -1,0 +1,9 @@
+services:
+  chatbot:
+    container_name: "chatbot"
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    volumes:
+      - "./ollama:/root/.ollama"
+    ports:
+      - "11434:11434"
