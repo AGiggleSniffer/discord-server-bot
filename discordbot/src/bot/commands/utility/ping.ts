@@ -1,11 +1,11 @@
-import { SlashCommandBuilder } from "npm:discord.js";
+import { SlashCommandBuilder } from 'discord';
+import { CommandModule } from 'discord.d.ts';
 
-export const data = new SlashCommandBuilder()
-  .setName("ping")
-  .setDescription("Replies with Pong!");
-
-export async function execute(
-  interaction: { reply: (arg0: string) => Promise<string> },
-) {
-  await interaction.reply("Pong!");
-}
+export default {
+	data: new SlashCommandBuilder()
+		.setName('ping')
+		.setDescription('Replies with Pong!'),
+	execute: async (
+		interaction: { reply: (arg0: string) => Promise<string> },
+	) => await interaction.reply('Pong!'),
+} as CommandModule;

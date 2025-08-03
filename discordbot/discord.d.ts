@@ -1,13 +1,18 @@
-import { Client, Collection, SlashCommandBuilder } from "npm:discord.js";
-import { unknown } from "zod";
+import { Collection, SlashCommandBuilder } from 'discord';
 
-type module = {
-    data: SlashCommandBuilder,
-    execute: (arg0: unknown) => unknown;
-}
+type CommandModule = {
+	data: SlashCommandBuilder;
+	execute: (arg0: unknown) => unknown;
+};
 
-declare module "npm:discord.js" {
-  export interface Client {
-    commands: Collection<string, unknown>;
-  }
+type EventModule = {
+	name: string;
+	once?: boolean;
+	execute: (arg0: unknown) => unknown;
+};
+
+declare module 'npm:discord.js' {
+	export interface Client {
+		commands: Collection<string, CommandModule>;
+	}
 }
