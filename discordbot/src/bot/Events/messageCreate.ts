@@ -1,6 +1,6 @@
 import { Events, Message, OmitPartialGroupDMChannel } from 'discord';
-import { HumanMessage, SystemMessage } from 'core/messages';
-import { llm, llmWithTools } from 'llm';
+import { HumanMessage } from 'core/messages';
+import { app, config } from 'llm';
 import { EventModule } from 'discord.d.ts';
 
 export default {
@@ -8,22 +8,17 @@ export default {
 	execute: async (message: OmitPartialGroupDMChannel<Message>) => {
 		if (message.author.bot) return;
 
-		const messages = [
-			new SystemMessage(
-				'Answer only in Gen Z slang, do not always respond.',
-			),
-			new HumanMessage(message.content),
-		];
-
-		console.log(messages);
+		console.log(message.content);
 		if (message.content === '!ping') {
 			message.channel.send('Pong!');
-		} else if (message.content.includes('weather')) {
-			const result = await llmWithTools.invoke(messages);
-			message.channel.send(`${result.content}`);
 		} else {
-			const result = await llm.invoke(messages);
-			message.channel.send(`${result.content}`);
+			const result = await app.invoke({
+				messages: [new HumanMessage(message.content)],
+			}, config);
+
+			message.channel.send(
+				`${result.messages[result.messages.length - 1].content}`,
+			);
 		}
 	},
 } as EventModule;

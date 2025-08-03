@@ -7,8 +7,12 @@
 
 	"imports": {
 		"@std/assert": "jsr:@std/assert@1",
+		"uuid": "jsr:@std/uuid",
+
 		"core": "npm:@langchain/core",
 		"ollama": "npm:@langchain/ollama",
+		"langgraph": "npm:@langchain/langgraph",
+
 		"zod": "npm:zod",
 		"compose": "npm:docker-compose",
 		"discord": "npm:discord.js",
