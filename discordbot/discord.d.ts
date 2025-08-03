@@ -8,7 +8,7 @@ type CommandModule = {
 type EventModule = {
 	name: string;
 	once?: boolean;
-	execute: (arg0: unknown) => unknown;
+	execute: (...args: unknown[]) => unknown;
 };
 
 declare module 'npm:discord.js' {

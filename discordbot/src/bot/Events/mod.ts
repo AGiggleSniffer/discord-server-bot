@@ -1,6 +1,7 @@
 import { client } from '../main.ts';
 import path from 'node:path';
 import fs from 'node:fs';
+import { EventModule } from 'discord.d.ts';
 
 const loadEvents = async () => {
 	const eventsPath = import.meta.dirname || '';
@@ -11,7 +12,7 @@ const loadEvents = async () => {
 	for (const file of eventFiles) {
 		const filePath = path.join(eventsPath, file);
 		const module = await import(filePath);
-		const event = module.default;
+		const event: EventModule = module.default;
 
 		if (event.once) {
 			client.once(event.name, (...args) => event.execute(...args));
